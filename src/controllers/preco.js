@@ -9,6 +9,7 @@ const listagem = async (req, res) => {
   })}
   catch(error){
     console.log("deu ruim :/");
+    return res.status(500).json({success: false, data: error});
   }
 };
 
