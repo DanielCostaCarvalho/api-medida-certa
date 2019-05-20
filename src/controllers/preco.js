@@ -6,5 +6,5 @@ const listagem = async (req, res) => {
       throw error
     }
     return res.status(200).json(results.rows);
-  }
+  })
 };
