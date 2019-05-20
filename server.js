@@ -1,4 +1,5 @@
 const app = require('./src/app');
+const client = require('./src/database');
 
 const boot = () => {
   app.listen(3000, () => {
@@ -6,4 +7,9 @@ const boot = () => {
   });
 };
 
-boot();
+client.connect().then(() => {
+  console.log('Banco conectado!');
+  boot();
+}).catch((err) => {
+  console.log(`Erro ao conectar banco ${err}`);
+});
