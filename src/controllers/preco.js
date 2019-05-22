@@ -4,7 +4,7 @@ const listagem = async (req, res) => {
   client.query('SELECT * FROM TipoAjuste ORDER BY codigoTipoRoupa', (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error
+      throw error;
     }
     return res.status(200).json(results.rows);
   })
@@ -17,7 +17,19 @@ const listagemRoupa = async (req, res) => {
   client.query(comando, [tipoRoupa], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error
+      throw error;
+    }
+    return res.status(200).json(results.rows);
+  })
+}
+
+const mostrar = async (req, res) => {
+  const { tipoAjuste } = req.body;
+  const comando = "SELECT * FROM TipoAjuste where codigotipoajuste = $1";
+  client.query(comando, [tipoAjuste], (error, results) => {
+    if (error) {
+      console.log("deu ruim :/");
+      throw error;
     }
     return res.status(200).json(results.rows);
   })
@@ -25,5 +37,6 @@ const listagemRoupa = async (req, res) => {
 
 module.exports = {
   listagem,
-  listagemRoupa
+  listagemRoupa,
+  mostrar
 };
