@@ -1,7 +1,7 @@
 const client = require('../database');
 
 const listagem = async (req, res) => {
-  try{client.query('SELECT * FROM TipoAjuste ORDER BY tipoRoupa', (error, results) => {
+  try{client.query('SELECT * FROM TipoAjuste ORDER BY codigoTipoRoupa', (error, results) => {
     if (error) {
       console.log("deu ruim :/");
       throw error
