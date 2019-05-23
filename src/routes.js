@@ -3,6 +3,7 @@ const preco = require('./controllers/preco');
 const loja = require('./controllers/loja');
 const cliente = require('./controllers/cliente');
 const tipoRoupa = require("./controllers/tipoRoupa");
+const roupa = require("./controllers/roupa");
 
 //Preco
 router.get('/preco/listagem', preco.listagem);
@@ -19,5 +20,10 @@ router.put('/cliente/atualizar/:idCliente', cliente.atualizar);
 //Tipo de roupa
 router.get('/tipoRoupa/mostrar/:idTipoRoupa', tipoRoupa.mostrar);
 router.get('/tipoRoupa/listagem', tipoRoupa.listagem);
+//Roupa
+router.get('/roupa/mostrar/:idRoupa', roupa.mostrar);
+router.get('/roupa/listagem', roupa.listagem);
+router.post('/roupa/cadastrar', roupa.cadastrar);
+router.put('/roupa/atualizar/:idRoupa', roupa.atualizar);
 
 module.exports = router;
