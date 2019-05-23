@@ -1,7 +1,7 @@
 const client = require('../database');
 
 const listagem = async (req, res) => {
-  client.query('SELECT * FROM TipoAjuste ORDER BY codigoTipoRoupa', (error, results) => {
+  client.query('SELECT * FROM TipoAjuste ORDER BY idTipoRoupa', (error, results) => {
     if (error) {
       console.log("deu ruim :/");
       throw error;
@@ -13,7 +13,7 @@ const listagem = async (req, res) => {
 
 const listagemRoupa = async (req, res) => {
   const { tipoRoupa } = req.body;
-  const comando = "SELECT * FROM TipoAjuste where codigoTipoRoupa = $1";
+  const comando = "SELECT * FROM TipoAjuste where idTipoRoupa = $1";
   client.query(comando, [tipoRoupa], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
@@ -25,7 +25,7 @@ const listagemRoupa = async (req, res) => {
 
 const mostrar = async (req, res) => {
   const { tipoAjuste } = req.body;
-  const comando = "SELECT * FROM TipoAjuste where codigotipoajuste = $1";
+  const comando = "SELECT * FROM TipoAjuste where idtipoajuste = $1";
   client.query(comando, [tipoAjuste], (error, results) => {
     if (error) {
       console.log("deu ruim :/");

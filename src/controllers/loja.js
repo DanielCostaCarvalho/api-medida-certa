@@ -12,8 +12,8 @@ const listagem = async (req, res) => {
 };
 
 const mostrar = async (req, res) => {
-  const { codigoLoja } = req.body;
-  const comando = "SELECT * FROM loja where codigoloja = $1";
+  const { idLoja } = req.body;
+  const comando = "SELECT * FROM loja where idloja = $1";
   client.query(comando, [codigoLoja], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
@@ -21,7 +21,7 @@ const mostrar = async (req, res) => {
     }
     return res.status(200).json(results.rows);
   })
-}
+};
 
 module.exports = {
   listagem,
