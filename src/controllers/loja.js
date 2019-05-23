@@ -12,7 +12,7 @@ const listagem = async (req, res) => {
 };
 
 const mostrar = async (req, res) => {
-  const { idLoja } = req.body;
+  const { idLoja } = req.params;
   const comando = "SELECT * FROM loja where idloja = $1";
   client.query(comando, [codigoLoja], (error, results) => {
     if (error) {

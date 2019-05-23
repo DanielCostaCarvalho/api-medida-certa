@@ -12,7 +12,7 @@ const listagem = async (req, res) => {
 };
 
 const listagemRoupa = async (req, res) => {
-  const { tipoRoupa } = req.body;
+  const { tipoRoupa } = req.params;
   const comando = "SELECT * FROM TipoAjuste where idTipoRoupa = $1";
   client.query(comando, [tipoRoupa], (error, results) => {
     if (error) {
@@ -24,7 +24,7 @@ const listagemRoupa = async (req, res) => {
 }
 
 const mostrar = async (req, res) => {
-  const { tipoAjuste } = req.body;
+  const { tipoAjuste } = req.params;
   const comando = "SELECT * FROM TipoAjuste where idtipoajuste = $1";
   client.query(comando, [tipoAjuste], (error, results) => {
     if (error) {
