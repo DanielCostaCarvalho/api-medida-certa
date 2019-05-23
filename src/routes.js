@@ -14,4 +14,5 @@ router.get('/loja/listagem', loja.listagem);
 router.get('/cliente/mostrar/:idCliente', cliente.mostrar);
 router.get('/cliente/listagem', cliente.listagem);
 router.post('/cliente/cadastrar', cliente.cadastrar);
+
 module.exports = router;
