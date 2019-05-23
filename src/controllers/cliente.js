@@ -11,7 +11,7 @@ const listagem = async (req, res) => {
 };
 
 const mostrar = async (req, res) => {
-  const { idCliente } = req.body;
+  const { idCliente } = req.params;
   const comando = "SELECT * FROM cliente where idCliente = $1";
   client.query(comando, [idCliente], (error, results) => {
     if (error) {
