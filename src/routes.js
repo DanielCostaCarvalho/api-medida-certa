@@ -6,6 +6,7 @@ const tipoRoupa = require("./controllers/tipoRoupa");
 const roupa = require("./controllers/roupa");
 const ajuste = require("./controllers/ajuste");
 const costureira = require('./controllers/costureira');
+const Entregador = require('./controllers/Entregador');
 
 //Preco
 router.get('/preco/listagem', preco.listagem);
@@ -39,5 +40,8 @@ router.put('/ajuste/atualizar/:idajuste', ajuste.atualizar);
 //Costureira Responsavel
 router.get('/costureira/mostrar/:idCostureiraResponsavel', costureira.mostrar);
 router.get('/costureira/listagem', costureira.listagem);
+//Entregador
+router.get('/Entregador/mostrar/:idEntregador', Entregador.mostrar);
+router.get('/Entregador/listagem', Entregador.listagem);
 
 module.exports = router;
