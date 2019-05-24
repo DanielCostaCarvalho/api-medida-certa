@@ -14,7 +14,7 @@ const listagem = async (req, res) => {
 const mostrar = async (req, res) => {
   const { idLoja } = req.params;
   const comando = "SELECT * FROM loja where idloja = $1";
-  client.query(comando, [codigoLoja], (error, results) => {
+  client.query(comando, [idLoja], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
       throw error;
