@@ -22,7 +22,8 @@ router.get('/tipoRoupa/mostrar/:idTipoRoupa', tipoRoupa.mostrar);
 router.get('/tipoRoupa/listagem', tipoRoupa.listagem);
 //Roupa
 router.get('/roupa/mostrar/:idRoupa', roupa.mostrar);
-router.get('/roupa/listagem', roupa.listagem);
+router.get('/roupa/listagemPendentes', roupa.listagemPendentes);
+router.get('/roupa/listagemNaoEntregues', roupa.listagemNaoEntregues);
 router.post('/roupa/cadastrar', roupa.cadastrar);
 router.put('/roupa/atualizar/:idRoupa', roupa.atualizar);
 

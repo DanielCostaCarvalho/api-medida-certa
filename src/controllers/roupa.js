@@ -1,7 +1,17 @@
 const client = require('../database');
 
-const listagem = async (req, res) => {
-  client.query('SELECT * FROM roupa', (error, results) => {
+const listagemPendentes = async (req, res) => {
+  client.query('SELECT * FROM roupa where idroupa = (select distinct(idroupa) from ajuste where datafinalizacao is null)', (error, results) => {
+    if (error) {
+      console.log("deu ruim :/");
+      throw error;
+    }
+    return res.status(200).json(results.rows);
+  })
+};
+
+const listagemNaoEntregues = async (req, res) => {
+  client.query('SELECT r.* FROM ajuste a inner join roupa r on a.idroupa =  r.idroupa where r.dataentrega is null and a.datafinalizacao is not null', (error, results) => {
     if (error) {
       console.log("deu ruim :/");
       throw error;
@@ -48,7 +58,8 @@ const atualizar = async (req, res) => {
 };
 
 module.exports = {
-  listagem,
+  listagemPendentes,
+  listagemNaoEntregues,
   mostrar,
   cadastrar,
   atualizar
