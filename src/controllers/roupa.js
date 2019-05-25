@@ -10,6 +10,18 @@ const listagemPendentes = async (req, res) => {
   })
 };
 
+const listagemPedido = async (req, res) => {
+  const { idPedido } = req.params;
+  const comando = "SELECT * FROM roupa where idpedido = $1";
+  client.query(comando, [idPedido], (error, results) => {
+    if (error) {
+      console.log("deu ruim :/");
+      return res.status(404);
+    }
+    return res.status(200).json(results.rows);
+  })
+};
+
 const listagemNaoEntregues = async (req, res) => {
   client.query('SELECT r.* FROM ajuste a inner join roupa r on a.idroupa =  r.idroupa where r.dataentrega is null and a.datafinalizacao is not null', (error, results) => {
     if (error) {
@@ -59,6 +71,7 @@ const atualizar = async (req, res) => {
 
 module.exports = {
   listagemPendentes,
+  listagemPedido,
   listagemNaoEntregues,
   mostrar,
   cadastrar,
