@@ -6,7 +6,7 @@ const tipoRoupa = require("./controllers/tipoRoupa");
 const roupa = require("./controllers/roupa");
 const ajuste = require("./controllers/ajuste");
 const costureira = require('./controllers/costureira');
-const Entregador = require('./controllers/Entregador');
+const Entregador = require('./controllers/entregador');
 
 //Preco
 router.get('/preco/listagem', preco.listagem);
