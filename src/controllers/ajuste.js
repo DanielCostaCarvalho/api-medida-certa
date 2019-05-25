@@ -4,7 +4,7 @@ const listagem = async (req, res) => {
   client.query('SELECT * FROM ajuste', (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
@@ -15,7 +15,7 @@ const listagemPendentes = async (req, res) => {
   client.query(comando, (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
@@ -27,7 +27,7 @@ const listagemRoupa = async (req, res) => {
   client.query(comando, [idRoupa], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
@@ -39,7 +39,7 @@ const listagemPendentesRoupa = async (req, res) => {
   client.query(comando, [idRoupa], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
@@ -51,7 +51,7 @@ const mostrar = async (req, res) => {
   client.query(comando, [idajuste], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
@@ -63,7 +63,7 @@ const cadastrar = async (req, res) => {
   client.query(comando, [idcostureiraresponsavel, idroupa, idtipoajuste, datafinalizacao, observacao], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
@@ -76,7 +76,7 @@ const atualizar = async (req, res) => {
   client.query(comando, [idcostureiraresponsavel, idroupa, idtipoajuste, datafinalizacao, observacao, idajuste], (error, results) => {
     if (error) {
       console.log("deu ruim :/");
-      throw error;
+      return res.status(404);
     }
     return res.status(200).json(results.rows);
   })
