@@ -46,9 +46,9 @@ router.get('/costureira/listagem', costureira.listagem);
 router.get('/entregador/mostrar/:idEntregador', entregador.mostrar);
 router.get('/entregador/listagem', entregador.listagem);
 //Pedido
-router.get('/pedido/mostrar/:idPedido', Pedido.mostrar);
-router.get('/pedido/listagem', Pedido.listagem);
-router.post('/pedido/cadastrar', Pedido.cadastrar);
-router.put('/pedido/atualizar/:idPedido', Pedido.atualizar);
+router.get('/pedido/mostrar/:idPedido', pedido.mostrar);
+router.get('/pedido/listagem', pedido.listagem);
+router.post('/pedido/cadastrar', pedido.cadastrar);
+router.put('/pedido/atualizar/:idPedido', pedido.atualizar);
 
 module.exports = router;
