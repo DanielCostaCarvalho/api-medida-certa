@@ -3,8 +3,8 @@ const client = require('../database');
 const listagem = async (req, res) => {
   client.query('SELECT * FROM Pedido', (error, results) => {
     if (error) {
-      console.log("deu ruim :/");
-      return res.status(404);
+      console.log(error);
+      return res.status(404).send();
     }
     return res.status(200).json(results.rows);
   })
@@ -15,8 +15,8 @@ const mostrar = async (req, res) => {
   const comando = "SELECT * FROM Pedido where idPedido = $1";
   client.query(comando, [idPedido], (error, results) => {
     if (error) {
-      console.log("deu ruim :/");
-      return res.status(404);
+      console.log(error);
+      return res.status(404).send();
     }
     return res.status(200).json(results.rows);
   })
@@ -27,8 +27,8 @@ const cadastrar = async (req, res) => {
   const comando = "INSERT INTO pedido(idcliente, idloja, datarecebimento) VALUES ($1, $2, $3) RETURNING *;";
   client.query(comando, [idcliente, idloja, datarecebimento], (error, results) => {
     if (error) {
-      console.log("deu ruim :/");
-      return res.status(404);
+      console.log(error);
+      return res.status(404).send();
     }
     return res.status(200).json(results.rows);
   })
@@ -40,8 +40,8 @@ const atualizar = async (req, res) => {
   const comando = "UPDATE public.pedido SET idpedido=?, idcliente=$1, idloja=$2, datarecebimento=$3 WHERE  WHERE idPedido=$4 RETURNING *;";
   client.query(comando, [idcliente, idloja, datarecebimento, idPedido], (error, results) => {
     if (error) {
-      console.log("deu ruim :/");
-      return res.status(404);
+      console.log(error);
+      return res.status(404).send();
     }
     return res.status(200).json(results.rows);
   })

@@ -3,8 +3,8 @@ const client = require('../database');
 const listagem = async (req, res) => {
   client.query('SELECT * FROM Entregador', (error, results) => {
     if (error) {
-      console.log("deu ruim :/");
-      return res.status(404);
+      console.log(error);
+      return res.status(404).send();
     }
     return res.status(200).json(results.rows);
   })
@@ -16,8 +16,8 @@ const mostrar = async (req, res) => {
   const comando = "SELECT * FROM Entregador where idEntregador = $1";
   client.query(comando, [idEntregador], (error, results) => {
     if (error) {
-      console.log("deu ruim :/");
-      return res.status(404);
+      console.log(error);
+      return res.status(404).send();
     }
     return res.status(200).json(results.rows);
   })
