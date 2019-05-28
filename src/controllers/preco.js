@@ -1,7 +1,18 @@
 const client = require('../database');
 
-const listagem = async (req, res) => {
-  client.query('SELECT * FROM TipoAjuste ORDER BY idTipoRoupa', (error, results) => {
+const listagemPF = async (req, res) => {
+  client.query('SELECT idtipoajuste, idtiporoupa, nometipoajuste, valorpf as preco FROM tipoajuste ORDER BY idTipoRoupa', (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
+    return res.status(200).json(results.rows);
+  })
+
+};
+
+const listagemPJ = async (req, res) => {
+  client.query('SELECT idtipoajuste, idtiporoupa, nometipoajuste, valorpj as preco FROM tipoajuste ORDER BY idTipoRoupa', (error, results) => {
     if (error) {
       console.log(error);
       return res.status(404).send();
@@ -36,7 +47,8 @@ const mostrar = async (req, res) => {
 }
 
 module.exports = {
-  listagem,
+  listagemPF,
+  listagemPJ,
   listagemRoupa,
   mostrar
 };

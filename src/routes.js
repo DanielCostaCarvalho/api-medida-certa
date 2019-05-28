@@ -10,7 +10,8 @@ const entregador = require('./controllers/entregador');
 const pedido = require('./controllers/pedido');
 
 //Preco
-router.get('/preco/listagem', preco.listagem);
+router.get('/preco/listagemPF', preco.listagemPF);
+router.get('/preco/listagemPJ', preco.listagemPJ);
 router.get('/preco/listagemRoupa/:tipoRoupa', preco.listagemRoupa);
 router.get('/preco/ajuste/:tipoAjuste', preco.mostrar);
 //Loja
