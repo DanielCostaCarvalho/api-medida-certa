@@ -22,6 +22,19 @@ const listagemNome = async (req, res) => {
   })
 };
 
+const sugestaoNome = async (req, res) => {
+  const { nomeCliente } = req.params;
+  const comando = "select * from cliente where nomecliente like '%' || $1 || '%' limit 1";
+  client.query(comando, [nomeCliente], (error, results) => {
+    if (error) {
+        console.log(error);
+        return res.status(404).send();
+    }
+    return res.status(200).json(results.rows);
+  })
+};
+
+
 const mostrar = async (req, res) => {
   const { idCliente } = req.params;
   const comando = "SELECT * FROM cliente where idCliente = $1";
@@ -62,6 +75,7 @@ const atualizar = async (req, res) => {
 module.exports = {
   listagem,
   listagemNome,
+  sugestaoNome,
   mostrar,
   cadastrar,
   atualizar
