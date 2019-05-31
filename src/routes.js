@@ -20,6 +20,7 @@ router.get('/loja/listagem', loja.listagem);
 //cliente
 router.get('/cliente/mostrar/:idCliente', cliente.mostrar);
 router.get('/cliente/listagem', cliente.listagem);
+router.get('/cliente/listagemNome/:nomeCliente', cliente.listagemNome);
 router.post('/cliente/cadastrar', cliente.cadastrar);
 router.put('/cliente/atualizar/:idCliente', cliente.atualizar);
 //Tipo de roupa
