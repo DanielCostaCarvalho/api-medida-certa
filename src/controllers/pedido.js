@@ -1,7 +1,7 @@
 const client = require('../database');
 
 const listagem = async (req, res) => {
-  client.query('SELECT * FROM Pedido', (error, results) => {
+  client.query('select p.*, c.nomecliente from pedido p inner join cliente c on p.idcliente = c.idcliente', (error, results) => {
     if (error) {
       console.log(error);
       return res.status(404).send();
