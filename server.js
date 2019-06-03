@@ -3,7 +3,7 @@ const client = require('./src/database');
 
 const boot = () => {
   app.listen(3000, () => {
-    console.log('Server running port 3000')
+    console.log('Servidor rodando na porta 3000')
   });
 };
 
