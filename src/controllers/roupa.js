@@ -61,19 +61,22 @@ const cadastrarAjustes = async (req, res) => {
   const comando = "INSERT INTO roupa(idpedido, idcliente, idtiporoupa, observacao, dataprevista) VALUES ($1, $2, $3, $4, $5) RETURNING *;";
   try{await client.query(comando, [idpedido, idcliente, roupaSelecionada, observacoes, prazoEntrega]).then(resp => {
     const comando = "INSERT INTO ajuste(idroupa, idtipoajuste) VALUES ($1, $2) RETURNING *;";
+    const resultado = {"idpedido": resp.rows[0].idpedido, "idcliente": resp.rows[0].idcliente, "idtiporoupa": resp.rows[0].idtiporoupa, "observacao": resp.rows[0].observacao, "dataprevista": resp.rows[0].dataprevista, "ajustes": []};
     for (var ajuste of isActiveAjuste) {
-      client.query(comando, [resp.rows[0].idroupa, ajuste], (error, results) => {
-        if (error) {
-          console.log(error);
-          return res.status(404).send(error);
-        }
+      client.query(comando, [resp.rows[0].idroupa, ajuste]).then(results => {
+        console.log(1);
+        resultado.ajustes.push(results.rows);
       });
+      console.log(1.5);
     }
-    return res.status(200).send(resp.rows);
+
+    console.log(2);
+    return res.status(200).send(resultado);
   });}
   catch(err){
     res.status(400).send({ err });
   }
+  console.log(3);
 };
 
 const atualizar = async (req, res) => {
