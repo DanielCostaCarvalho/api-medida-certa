@@ -1,4 +1,5 @@
 const client = require('../database');
+const format = require('pg-format');
 
 const listagemPendentes = async (req, res) => {
   client.query('SELECT * FROM roupa where idroupa = (select distinct(idroupa) from ajuste where datafinalizacao is null)', (error, results) => {
@@ -60,23 +61,22 @@ const cadastrarAjustes = async (req, res) => {
   const { idpedido, idcliente, roupaSelecionada, observacoes, prazoEntrega, isActiveAjuste } = req.body;
   const comando = "INSERT INTO roupa(idpedido, idcliente, idtiporoupa, observacao, dataprevista) VALUES ($1, $2, $3, $4, $5) RETURNING *;";
   try{await client.query(comando, [idpedido, idcliente, roupaSelecionada, observacoes, prazoEntrega]).then(resp => {
-    const comando = "INSERT INTO ajuste(idroupa, idtipoajuste) VALUES ($1, $2) RETURNING *;";
-    const resultado = {"idpedido": resp.rows[0].idpedido, "idcliente": resp.rows[0].idcliente, "idtiporoupa": resp.rows[0].idtiporoupa, "observacao": resp.rows[0].observacao, "dataprevista": resp.rows[0].dataprevista, "ajustes": []};
+    const valores = [];
     for (var ajuste of isActiveAjuste) {
-      client.query(comando, [resp.rows[0].idroupa, ajuste]).then(results => {
-        console.log(1);
-        resultado.ajustes.push(results.rows);
-      });
-      console.log(1.5);
+      const valor = [resp.rows[0].idroupa, ajuste]
+      valores.push(valor);
     }
-
-    console.log(2);
-    return res.status(200).send(resultado);
+    const comando2 = format("INSERT INTO ajuste(idroupa, idtipoajuste) VALUES %L RETURNING *;", valores);
+      client.query(comando2).then(results => {
+        const resultado = {"idpedido": resp.rows[0].idpedido, "idcliente": resp.rows[0].idcliente, "idtiporoupa": resp.rows[0].idtiporoupa, "observacao": resp.rows[0].observacao, "dataprevista": resp.rows[0].dataprevista, "ajustes": []};
+        resultado.ajustes = results.rows;
+        return res.status(200).json(resultado);
+      });
   });}
   catch(err){
+    console.log(err);
     res.status(400).send({ err });
   }
-  console.log(3);
 };
 
 const atualizar = async (req, res) => {
