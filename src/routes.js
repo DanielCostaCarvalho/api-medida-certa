@@ -51,6 +51,8 @@ router.get('/costureira/listagem', costureira.listagem);
 //Entregador
 router.get('/entregador/mostrar/:idEntregador', entregador.mostrar);
 router.get('/entregador/listagem', entregador.listagem);
+router.post('/entregador/cadastrar', entregador.cadastrar);
+router.put('/entregador/atualizar/:idEntregador', entregador.atualizar);
 //Pedido
 router.get('/pedido/mostrar/:idPedido', pedido.mostrar);
 router.get('/pedido/listagem', pedido.listagem);
