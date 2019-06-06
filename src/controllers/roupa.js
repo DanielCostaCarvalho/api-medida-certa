@@ -2,13 +2,25 @@ const client = require('../database');
 const format = require('pg-format');
 
 const listagemPendentes = async (req, res) => {
-  client.query('SELECT * FROM roupa where idroupa = (select distinct(idroupa) from ajuste where datafinalizacao is null)', (error, results) => {
-    if (error) {
-      console.log(error);
-      return res.status(404).send();
-    }
-    return res.status(200).json(results.rows);
-  })
+  try{
+    await client.query('SELECT * FROM roupa where idroupa in (select distinct(idroupa) from ajuste where datafinalizacao is null)').then(resp => {
+      const completo = [];
+      client.query('select * from ajuste where datafinalizacao is null').then(resposta => {
+        //dentro do for colocar um filter para ver se o idroupa do resposta = ao do r, se for adicionar em um array e por fim colocar o array no objeto e dar push
+        for (var r of resp.rows) {
+          let ap = resposta.rows.filter(ajustePendente => {
+            return ajustePendente.idroupa === r.idroupa
+          });
+          completo.push( {"idroupa": r.idroupa, "idpedido": r.idpedido,  "idcliente": r.idcliente,  "idtiporoupa": r.idtiporoupa,  "observacao": r.observacao,  "dataprevista": r.dataprevista,  "dataentrega": r.dataentrega, "ajustesPendentes": ap });
+        }
+
+        return res.send(completo)
+      })
+    })
+  } catch(err) {
+    console.log(err);
+    res.status(400).send({ err })
+  }
 };
 
 const listagemPedido = async (req, res) => {
