@@ -37,7 +37,7 @@ const cadastrar = async (req, res) => {
 const atualizar = async (req, res) => {
   const { idPedido } = req.params;
   const { idcliente, idloja, datarecebimento } = req.body;
-  const comando = "UPDATE public.pedido SET idpedido=?, idcliente=$1, idloja=$2, datarecebimento=$3 WHERE  WHERE idPedido=$4 RETURNING *;";
+  const comando = "UPDATE pedido SET idcliente=$1, idloja=$2, datarecebimento=$3 WHERE  WHERE idPedido=$4 RETURNING *;";
   client.query(comando, [idcliente, idloja, datarecebimento, idPedido], (error, results) => {
     if (error) {
       console.log(error);
