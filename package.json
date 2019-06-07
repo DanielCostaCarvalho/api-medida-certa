@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
     "criaBanco": "pg_restore.exe –host localhost –port 5432 –username postgres –dbname medidacerta ./medidacerta.sql"
+=======
+    "criaBanco": "psql -U postgres -d medidacerta -f ./medidacerta.sql"
+>>>>>>> dbbda9f6c4d0ca1a2a2165098cdd5466d2cba1f0
   },
   "repository": {
     "type": "git",
