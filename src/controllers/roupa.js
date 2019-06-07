@@ -25,14 +25,31 @@ const listagemPendentes = async (req, res) => {
 
 const listagemPedido = async (req, res) => {
   const { idPedido } = req.params;
-  const comando = "SELECT r.*, t.nomeroupa FROM roupa r inner join tipoRoupa t on r.idtiporoupa = t.idtiporoupa where idpedido = $1";
-  client.query(comando, [idPedido], (error, results) => {
-    if (error) {
-      console.log(error);
-      return res.status(404).send();
-    }
-    return res.status(200).json(results.rows);
-  })
+  try{
+    await client.query('select * from precototal($1);', [idPedido]).then(resp1 => {
+      const retorno = {"precoTotal": resp1.rows[0].precototal, "roupas": []}
+      client.query('SELECT * from pedidoPreco($1) as (idroupa integer, nomeroupa varchar(50), idpedido integer, idcliente integer, idtiporoupa integer, observacao varchar(250), dataprevista timestamp with time zone, dataentrega timestamp with time zone, identregador integer, concluido boolean, precoroupa numeric);', [idPedido]).then(resp => {
+        const roupas = [];
+        for (row of resp.rows) {
+          roupas.push(row.idroupa);
+        }
+        const comando = format("select a.*, ta.nometipoajuste from ajuste a inner join tipoAjuste ta on ta.idtipoajuste = a.idtipoajuste where idroupa in (%L);", roupas);
+        client.query(comando).then(resposta => {
+          for (var r of resp.rows) {
+            let ap = resposta.rows.filter(ajustePendente => {
+              return ajustePendente.idroupa === r.idroupa
+            });
+            retorno.roupas.push( {"idroupa": r.idroupa, "nomeroupa": r.nomeroupa, "idpedido": r.idpedido,  "idcliente": r.idcliente,  "idtiporoupa": r.idtiporoupa,  "observacao": r.observacao,  "dataprevista": r.dataprevista, "dataentrega": r.dataentrega, "concluido": r.concluido, "precoRoupa": r.precoroupa, "ajustes": ap });
+          }
+
+          return res.send(retorno);
+        })
+      })
+    })
+  } catch(err) {
+    console.log(err);
+    res.status(400).send({ err })
+  }
 };
 
 const listagemNaoEntregues = async (req, res) => {
