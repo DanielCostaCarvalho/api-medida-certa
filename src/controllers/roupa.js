@@ -74,7 +74,24 @@ const mostrar = async (req, res) => {
       console.log(error);
       return res.status(404).send();
     }
-    return res.status(200).json(results.rows);
+    const comando2 = "select a.*, ta.nometipoajuste from ajuste a inner join tipoAjuste ta on ta.idtipoajuste = a.idtipoajuste where idroupa = $1";
+    client.query(comando2, [idRoupa], (error, resp) => {
+
+      const retorno = {"idroupa": results.rows[0].idroupa,
+        "idpedido": results.rows[0].idpedido,
+        "idcliente": results.rows[0].idcliente,
+        "idtiporoupa": results.rows[0].idtiporoupa,
+        "observacao": results.rows[0].observacao,
+        "dataprevista": results.rows[0].dataprevista,
+        "dataentrega": results.rows[0].dataentrega,
+        "identregador": results.rows[0].identregador,
+        "concluido": results.rows[0].concluido,
+        "nomeroupa": results.rows[0].nomeroupa,
+        "nomecliente": results.rows[0].nomeCliente,
+        "ajustes": resp.rows
+      };
+      return res.send(retorno);
+    })
   })
 };
 
