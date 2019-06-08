@@ -10,6 +10,16 @@ const listagem = async (req, res) => {
   })
 };
 
+const listagemPendentes = async (req, res) => {
+  client.query('select p.*, c.nomecliente from pedido p inner join cliente c on p.idcliente = c.idcliente where p.concluido = false', (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
+    return res.status(200).json(results.rows);
+  })
+};
+
 const mostrar = async (req, res) => {
   const { idPedido } = req.params;
   const comando = "SELECT * FROM Pedido where idPedido = $1";
@@ -49,6 +59,7 @@ const atualizar = async (req, res) => {
 
 module.exports = {
   listagem,
+  listagemPendentes,
   mostrar,
   cadastrar,
   atualizar

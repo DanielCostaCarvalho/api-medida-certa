@@ -57,6 +57,7 @@ router.put('/entregador/atualizar/:idEntregador', entregador.atualizar);
 //Pedido
 router.get('/pedido/mostrar/:idPedido', pedido.mostrar);
 router.get('/pedido/listagem', pedido.listagem);
+router.get('/pedido/listagemPendentes', pedido.listagemPendentes);
 router.post('/pedido/cadastrar', pedido.cadastrar);
 router.put('/pedido/atualizar/:idPedido', pedido.atualizar);
 
