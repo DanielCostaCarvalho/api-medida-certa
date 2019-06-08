@@ -155,6 +155,25 @@ const cadastrarEntrega = async (req, res) => {
   })
 };
 
+const deletar = async (req, res) => {
+  const { idRoupa } = req.params;
+  const comando = "delete from ajuste where idroupa=$1;";
+  const comando2 = "delete from roupa where idroupa=$1;";
+  client.query(comando, [idRoupa], (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
+    client.query(comando2, [idRoupa], (error2, results2) => {
+      if (error2) {
+        console.log(error);
+        return res.status(404).send();
+      }
+      return res.status(204).send();
+    })
+  })
+};
+
 module.exports = {
   listagemPendentes,
   listagemPedido,
@@ -163,5 +182,6 @@ module.exports = {
   mostrar,
   cadastrar,
   atualizar,
-  cadastrarEntrega
+  cadastrarEntrega,
+  deletar
 };

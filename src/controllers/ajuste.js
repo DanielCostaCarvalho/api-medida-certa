@@ -82,6 +82,18 @@ const atualizar = async (req, res) => {
   })
 };
 
+const deletar = async (req, res) => {
+  const { idAjuste } = req.params;
+  const comando = "delete from ajuste where idajuste=$1;";
+  client.query(comando, [idAjuste], (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
+    return res.status(204).send();
+  })
+};
+
 module.exports = {
   listagem,
   listagemRoupa,
@@ -89,5 +101,6 @@ module.exports = {
   listagemPendentesRoupa,
   mostrar,
   cadastrar,
-  atualizar
+  atualizar,
+  deletar
 };

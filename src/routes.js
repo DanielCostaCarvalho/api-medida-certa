@@ -37,6 +37,7 @@ router.get('/roupa/listagemNaoEntregues', roupa.listagemNaoEntregues);
 router.post('/roupa/cadastrar', roupa.cadastrar);
 router.post('/roupa/cadastrarAjustes', roupa.cadastrarAjustes);
 router.put('/roupa/atualizar/:idRoupa', roupa.atualizar);
+router.put('/roupa/deletar/:idRoupa', roupa.deletar);
 router.put('/roupa/cadastrarEntrega/:idRoupa', roupa.cadastrarEntrega);
 //Ajuste
 router.get('/ajuste/mostrar/:idajuste', ajuste.mostrar);
@@ -46,6 +47,7 @@ router.get('/ajuste/listagemRoupa/:idRoupa', ajuste.listagemRoupa);
 router.get('/ajuste/listagemPendentesRoupa/:idRoupa', ajuste.listagemPendentesRoupa);
 router.post('/ajuste/cadastrar', ajuste.cadastrar);
 router.put('/ajuste/atualizar/:idajuste', ajuste.atualizar);
+router.delete('/ajuste/atualizar/:idAjuste', ajuste.deletar);
 //Costureira Responsavel
 router.get('/costureira/mostrar/:idCostureiraResponsavel', costureira.mostrar);
 router.get('/costureira/listagem', costureira.listagem);
@@ -60,5 +62,6 @@ router.get('/pedido/listagem', pedido.listagem);
 router.get('/pedido/listagemPendentes', pedido.listagemPendentes);
 router.post('/pedido/cadastrar', pedido.cadastrar);
 router.put('/pedido/atualizar/:idPedido', pedido.atualizar);
+router.delete('/pedido/deletar/:idPedido', pedido.deletar);
 
 module.exports = router;
