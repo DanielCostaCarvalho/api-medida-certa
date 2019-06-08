@@ -57,7 +57,7 @@ const listagemPedido = async (req, res) => {
 };
 
 const listagemNaoEntregues = async (req, res) => {
-  client.query('SELECT r.*, t.nomeroupa roupa r inner join tipoRoupa t on r.idtiporoupa = t.idtiporoupa where r.dataentrega is null and idroupa not in (Select distinct idroupa from ajuste where datafinalizacao is null)', (error, results) => {
+  client.query('SELECT r.*, t.nomeroupa from roupa r inner join tipoRoupa t on r.idtiporoupa = t.idtiporoupa where r.dataentrega is null and idroupa not in (Select distinct idroupa from ajuste where datafinalizacao is null)', (error, results) => {
     if (error) {
       console.log(error);
       return res.status(404).send();
