@@ -87,7 +87,7 @@ const mostrar = async (req, res) => {
         "identregador": results.rows[0].identregador,
         "concluido": results.rows[0].concluido,
         "nomeroupa": results.rows[0].nomeroupa,
-        "nomecliente": results.rows[0].nomeCliente,
+        "nomecliente": results.rows[0].nomecliente,
         "ajustes": resp.rows
       };
       return res.send(retorno);
