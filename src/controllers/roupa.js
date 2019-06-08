@@ -5,13 +5,13 @@ const listagemPendentes = async (req, res) => {
   try{
     await client.query('SELECT r.*, t.nomeroupa FROM roupa r inner join tipoRoupa t on r.idtiporoupa = t.idtiporoupa where concluido <> true order by r.dataprevista asc;').then(resp => {
       const completo = [];
-      client.query('select * from ajuste where datafinalizacao is null').then(resposta => {
+      client.query('select a.*, t.nometipoajuste from ajuste a inner join tipoajuste t on a.idtipoajuste = t.idtipoajuste where datafinalizacao is null').then(resposta => {
         //dentro do for colocar um filter para ver se o idroupa do resposta = ao do r, se for adicionar em um array e por fim colocar o array no objeto e dar push
         for (var r of resp.rows) {
           let ap = resposta.rows.filter(ajustePendente => {
             return ajustePendente.idroupa === r.idroupa
           });
-          completo.push( {"idroupa": r.idroupa, "idpedido": r.idpedido,  "idcliente": r.idcliente,  "idtiporoupa": r.idtiporoupa,  "observacao": r.observacao,  "dataprevista": r.dataprevista,  "dataentrega": r.dataentrega, "ajustesPendentes": ap });
+          completo.push( {"idroupa": r.idroupa, "nomeroupa": r.nomeroupa, "idpedido": r.idpedido,  "idcliente": r.idcliente,  "idtiporoupa": r.idtiporoupa,  "observacao": r.observacao,  "dataprevista": r.dataprevista,  "dataentrega": r.dataentrega, "ajustesPendentes": ap });
         }
 
         return res.send(completo)
