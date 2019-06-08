@@ -72,7 +72,7 @@ const cadastrar = async (req, res) => {
 const atualizar = async (req, res) => {
   const { idajuste } = req.params;
   const { idcostureiraresponsavel, idroupa, idtipoajuste, datafinalizacao, observacao } = req.body;
-  const comando = "UPDATE ajuste SET idcostureiraresponsavel=$1, idroupa=$2, datafinalizacao=$3, observacao=$4 WHERE idajuste=$6 RETURNING *;";
+  const comando = "UPDATE ajuste SET idcostureiraresponsavel=$1, idroupa=$2, datafinalizacao=$3, observacao=$4 WHERE idajuste=$5 RETURNING *;";
   client.query(comando, [idcostureiraresponsavel, idroupa, datafinalizacao, observacao, idajuste], (error, results) => {
     if (error) {
       console.log(error);
