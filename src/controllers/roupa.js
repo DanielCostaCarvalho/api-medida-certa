@@ -34,16 +34,20 @@ const listagemPedido = async (req, res) => {
           roupas.push(row.idroupa);
         }
         const comando = format("select a.*, ta.nometipoajuste from ajuste a inner join tipoAjuste ta on ta.idtipoajuste = a.idtipoajuste where idroupa in (%L);", roupas);
-        client.query(comando).then(resposta => {
-          for (var r of resp.rows) {
-            let ap = resposta.rows.filter(ajustePendente => {
-              return ajustePendente.idroupa === r.idroupa
-            });
-            retorno.roupas.push( {"idroupa": r.idroupa, "nomeroupa": r.nomeroupa, "idpedido": r.idpedido,  "idcliente": r.idcliente,  "idtiporoupa": r.idtiporoupa,  "observacao": r.observacao,  "dataprevista": r.dataprevista, "dataentrega": r.dataentrega, "concluido": r.concluido, "precoRoupa": r.precoroupa, "ajustes": ap });
-          }
+        if(roupas.length > 0){
+          client.query(comando).then(resposta => {
+            for (var r of resp.rows) {
+              let ap = resposta.rows.filter(ajustePendente => {
+                return ajustePendente.idroupa === r.idroupa
+              });
+              retorno.roupas.push( {"idroupa": r.idroupa, "nomeroupa": r.nomeroupa, "idpedido": r.idpedido,  "idcliente": r.idcliente,  "idtiporoupa": r.idtiporoupa,  "observacao": r.observacao,  "dataprevista": r.dataprevista, "dataentrega": r.dataentrega, "concluido": r.concluido, "precoRoupa": r.precoroupa, "ajustes": ap });
+            }
 
+            return res.send(retorno);
+          })
+        }else {
           return res.send(retorno);
-        })
+        }
       })
     })
   } catch(err) {
