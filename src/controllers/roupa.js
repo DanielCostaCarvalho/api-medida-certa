@@ -68,7 +68,7 @@ const listagemNaoEntregues = async (req, res) => {
 
 const mostrar = async (req, res) => {
   const { idRoupa } = req.params;
-  const comando = "SELECT r.*, t.nomeroupa FROM roupa r inner join tipoRoupa t on r.idtiporoupa = t.idtiporoupa  where idroupa = $1";
+  const comando = "SELECT r.*, t.nomeroupa, c.nomecliente FROM roupa r inner join tipoRoupa t on r.idtiporoupa = t.idtiporoupa inner join pedido p on p.idpedido = r.idpedido inner join cliente c on c.idcliente = p.idcliente where idroupa = $1";
   client.query(comando, [idRoupa], (error, results) => {
     if (error) {
       console.log(error);
