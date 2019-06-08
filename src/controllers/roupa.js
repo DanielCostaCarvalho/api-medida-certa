@@ -142,6 +142,19 @@ const atualizar = async (req, res) => {
   })
 };
 
+const cadastrarEntrega = async (req, res) => {
+  const { idRoupa } = req.params;
+  const { dataentrega, identregador } = req.body;
+  const comando = "UPDATE roupa SET dataentrega=$1, identregador=$2 WHERE idroupa= $3 RETURNING *;";
+  client.query(comando, [dataentrega, identregador, idRoupa], (error, results) => {
+    if (error) {
+      console.log(error);
+      return res.status(404).send();
+    }
+    return res.status(200).json(results.rows);
+  })
+};
+
 module.exports = {
   listagemPendentes,
   listagemPedido,
@@ -149,5 +162,6 @@ module.exports = {
   cadastrarAjustes,
   mostrar,
   cadastrar,
-  atualizar
+  atualizar,
+  cadastrarEntrega
 };

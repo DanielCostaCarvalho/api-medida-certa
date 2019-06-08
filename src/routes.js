@@ -37,6 +37,7 @@ router.get('/roupa/listagemNaoEntregues', roupa.listagemNaoEntregues);
 router.post('/roupa/cadastrar', roupa.cadastrar);
 router.post('/roupa/cadastrarAjustes', roupa.cadastrarAjustes);
 router.put('/roupa/atualizar/:idRoupa', roupa.atualizar);
+router.put('/roupa/cadastrarEntrega/:idRoupa', roupa.cadastrarEntrega);
 //Ajuste
 router.get('/ajuste/mostrar/:idajuste', ajuste.mostrar);
 router.get('/ajuste/listagem', ajuste.listagem);
